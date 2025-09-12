@@ -96,6 +96,12 @@ public:
 	virtual void initialize() = 0;
 	virtual void begin_frame(double frame_step) = 0;
 
+/**
+ * @brief Abstract interface for @ref RasterizerGLES3::blit_render_targets_to_screen
+ * @ingroup render_viewport
+ * \callgraph
+ * \callergraph
+ */
 	virtual void blit_render_targets_to_screen(DisplayServer::WindowID p_screen, const BlitToScreen *p_render_targets, int p_amount) = 0;
 
 	virtual void gl_end_frame(bool p_swap_buffers) = 0;

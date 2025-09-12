@@ -661,6 +661,15 @@ void RendererViewport::_draw_viewport(Viewport *p_viewport) {
 	}
 }
 
+/**
+ * @brief draw viewports to windows
+ * @ingroup render_viewport
+ * \callgraph
+ * \callergraph
+ *Build BlitToScreen array based on viewport and then call method @ref RendererCompositor::blit_render_targets_to_screen to draw viewports on screen.
+ * 
+ * @param p_swap_buffers 
+ */
 void RendererViewport::draw_viewports(bool p_swap_buffers) {
 	timestamp_vp_map.clear();
 
@@ -809,6 +818,7 @@ void RendererViewport::draw_viewports(bool p_swap_buffers) {
 
 			if (vp->viewport_to_screen != DisplayServer::INVALID_WINDOW_ID && (!vp->viewport_render_direct_to_screen || !RSG::rasterizer->is_low_end())) {
 				//copy to screen if set as such
+        // sopho: render_viewport build BlitToScreen Vector
 				BlitToScreen blit;
 				blit.render_target = vp->render_target;
 				if (vp->viewport_to_screen_rect != Rect2()) {
@@ -824,6 +834,7 @@ void RendererViewport::draw_viewports(bool p_swap_buffers) {
 
 				if (OS::get_singleton()->get_current_rendering_driver_name().begins_with("opengl3")) {
 					Vector<BlitToScreen> blit_to_screen_vec;
+          // sopho: render_viewport build BlitToScreen Vector
 					blit_to_screen_vec.push_back(blit);
 					RSG::rasterizer->blit_render_targets_to_screen(vp->viewport_to_screen, blit_to_screen_vec.ptr(), 1);
 					RSG::rasterizer->gl_end_frame(p_swap_buffers);
@@ -1004,6 +1015,21 @@ void RendererViewport::viewport_set_clear_mode(RID p_viewport, RS::ViewportClear
 	viewport->clear_mode = p_clear_mode;
 }
 
+/**
+ * @brief Let Window pass viewport size to viewport
+ * @ingroup resize
+ * \callgraph
+ * \callergraph
+ *
+ * If @p p_screen is valid, set size and position and store the value.
+ * 
+ * For gl call @ref RendererTextureStorage::render_target_set_size and @ref RendererTextureStorage::render_target_set_position to set render target's size and position.
+ *
+ * @todo Understand what are code doing in screen is invalid.
+ * @param p_viewport RID of viewport
+ * @param p_rect Size and Posision of Viewport
+ * @param p_screen Id of Window
+ */
 void RendererViewport::viewport_attach_to_screen(RID p_viewport, const Rect2 &p_rect, DisplayServer::WindowID p_screen) {
 	Viewport *viewport = viewport_owner.get_or_null(p_viewport);
 	ERR_FAIL_NULL(viewport);

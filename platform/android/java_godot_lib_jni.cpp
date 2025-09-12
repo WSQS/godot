@@ -28,6 +28,10 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
+/** @defgroup resize Window Resize
+ *  @brief the path of Window Resize
+ */
+
 #include "java_godot_lib_jni.h"
 
 #include "android_input_handler.h"
@@ -210,6 +214,17 @@ JNIEXPORT jboolean JNICALL Java_org_godotengine_godot_GodotLib_setup(JNIEnv *env
 	return true;
 }
 
+/**
+ * @brief Resize window called by java
+ * @ingroup resize
+ * \callgraph
+ * \callergraph
+ * @param env 
+ * @param clazz 
+ * @param p_surface 
+ * @param p_width 
+ * @param p_height 
+ */
 JNIEXPORT void JNICALL Java_org_godotengine_godot_GodotLib_resize(JNIEnv *env, jclass clazz, jobject p_surface, jint p_width, jint p_height) {
 	if (os_android) {
 		os_android->set_display_size(Size2i(p_width, p_height));

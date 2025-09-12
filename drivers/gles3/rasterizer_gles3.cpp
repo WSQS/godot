@@ -28,6 +28,10 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
+/** @defgroup render_viewport render viewport
+ *  @brief the path of render viewport
+ */
+
 #include "rasterizer_gles3.h"
 #include "storage/utilities.h"
 
@@ -375,6 +379,22 @@ RasterizerGLES3::RasterizerGLES3() {
 RasterizerGLES3::~RasterizerGLES3() {
 }
 
+/**
+ * @brief Blit render target to screen
+ * @ingroup render_viewport
+ * \callgraph
+ * \callergraph
+ * 
+ * It's called by @ref blit_render_targets_to_screen
+ *
+ * Using function \c glBlitFramebuffer
+ * @see blit_render_targets_to_screen
+ * @param p_render_target 
+ * @param p_screen Not used, the destination is GLES3::TextureStorage::system_fbo.
+ * @param p_screen_rect Screen size
+ * @param p_layer 
+ * @param p_first Is the first screen
+ */
 void RasterizerGLES3::_blit_render_target_to_screen(RID p_render_target, DisplayServer::WindowID p_screen, const Rect2 &p_screen_rect, uint32_t p_layer, bool p_first) {
 	GLES3::RenderTarget *rt = GLES3::TextureStorage::get_singleton()->get_render_target(p_render_target);
 
@@ -436,6 +456,16 @@ void RasterizerGLES3::_blit_render_target_to_screen(RID p_render_target, Display
 }
 
 // is this p_screen useless in a multi window environment?
+/**
+ * @brief blit render target array to screen
+ * @ingroup render_viewport
+ * \callgraph
+ * \callergraph
+ * 
+ * @param p_screen Id of screen, not used in GL
+ * @param p_render_targets Pointer to an array of BlitToScreen structures, each describing one render target and its source and destination rect.
+ * @param p_amount Length of the array
+ */
 void RasterizerGLES3::blit_render_targets_to_screen(DisplayServer::WindowID p_screen, const BlitToScreen *p_render_targets, int p_amount) {
 	for (int i = 0; i < p_amount; i++) {
 		const BlitToScreen &blit = p_render_targets[i];

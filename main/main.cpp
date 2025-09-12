@@ -4041,6 +4041,14 @@ static uint64_t navigation_process_max = 0;
 // Return false means iterating further, returning true means `OS::run`
 // will terminate the program. In case of failure, the OS exit code needs
 // to be set explicitly here (defaults to EXIT_SUCCESS).
+/**
+ * @brief Iteration
+ * @ingroup render_viewport
+ * \callgraph
+ * \callergraph
+ * @return true 
+ * @return false 
+ */
 bool Main::iteration() {
 	iterating++;
 

@@ -572,6 +572,14 @@ void DisplayServerAndroid::reset_window() {
 #endif
 }
 
+/**
+ * @brief Notify Windows changed to @ref Window::_rect_changed_callback
+ * @ingroup resize
+ * \callgraph
+ * \callergraph
+ * @param p_width 
+ * @param p_height 
+ */
 void DisplayServerAndroid::notify_surface_changed(int p_width, int p_height) {
 	if (rect_changed_callback.is_valid()) {
 		rect_changed_callback.call(Rect2i(0, 0, p_width, p_height));

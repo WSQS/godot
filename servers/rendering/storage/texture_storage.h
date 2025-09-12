@@ -139,8 +139,27 @@ public:
 	virtual RID render_target_create() = 0;
 	virtual void render_target_free(RID p_rid) = 0;
 
+	/**
+	 * @brief 
+   * @ingroup resize
+   * \callgraph
+   * \callergraph
+	 * @param p_render_target 
+	 * @param p_x 
+	 * @param p_y 
+	 */
 	virtual void render_target_set_position(RID p_render_target, int p_x, int p_y) = 0; // Q change input to const Point2i &p_position ?
 	virtual Point2i render_target_get_position(RID p_render_target) const = 0;
+  /**
+   * @brief 
+   * @ingroup resize
+   * \callgraph
+   * \callergraph
+   * @param p_render_target 
+   * @param p_width 
+   * @param p_height 
+   * @param p_view_count 
+   */
 	virtual void render_target_set_size(RID p_render_target, int p_width, int p_height, uint32_t p_view_count) = 0; // Q change input to const Size2i &p_size ?
 	virtual Size2i render_target_get_size(RID p_render_target) const = 0;
 	virtual void render_target_set_transparent(RID p_render_target, bool p_is_transparent) = 0;

@@ -696,6 +696,13 @@ void Window::_clear_window() {
 	}
 }
 
+/**
+ * @brief Update windows @ref Window::position and @ref Window::size and then call @ref Window::_update_viewport_size
+ * @ingroup resize
+ * \callgraph
+ * \callergraph
+ * @param p_callback 
+ */
 void Window::_rect_changed_callback(const Rect2i &p_callback) {
 	//we must always accept this as the truth
 	if (size == p_callback.size && position == p_callback.position) {
@@ -1083,8 +1090,13 @@ void Window::_update_window_size() {
 	_update_viewport_size();
 }
 
+/**
+ * @brief Update the viewport part, handle content scale. Call @ref RenderingServer::viewport_attach_to_screen to pass screen_rect to viewport.
+ * @ingroup resize
+ * \callgraph
+ * \callergraph
+ */
 void Window::_update_viewport_size() {
-	//update the viewport part
 
 	Size2i final_size;
 	Size2i final_size_override;

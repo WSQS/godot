@@ -876,6 +876,17 @@ public:
 	virtual void viewport_set_parent_viewport(RID p_viewport, RID p_parent_viewport) = 0;
 	virtual void viewport_set_canvas_cull_mask(RID p_viewport, uint32_t p_canvas_cull_mask) = 0;
 
+  /**
+ * @brief Let Window pass viewport size to viewport
+ * @ingroup resize
+ * \callgraph
+ * \callergraph
+ *
+ * Proxy by @ref RenderingServerDefault and finally call to RendererViewport::viewport_attach_to_screen 
+ * @param p_viewport RID of viewport
+ * @param p_rect Size and Posision of Viewport
+ * @param p_screen Id of Window
+ */
 	virtual void viewport_attach_to_screen(RID p_viewport, const Rect2 &p_rect = Rect2(), DisplayServer::WindowID p_screen = DisplayServer::MAIN_WINDOW_ID) = 0;
 	virtual void viewport_set_render_direct_to_screen(RID p_viewport, bool p_enable) = 0;
 
@@ -1654,6 +1665,14 @@ public:
 
 	virtual void request_frame_drawn_callback(const Callable &p_callable) = 0;
 
+/**
+ * @brief interface of draw
+ * @ingroup render_viewport
+ * \callgraph
+ * \callergraph
+ * @param p_swap_buffers 
+ * @param frame_step 
+ */
 	virtual void draw(bool p_swap_buffers = true, double frame_step = 0.0) = 0;
 	virtual void sync() = 0;
 	virtual bool has_changed() const = 0;
