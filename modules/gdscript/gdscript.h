@@ -28,6 +28,10 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
+/** @defgroup gdscript GDScript
+ *  @brief gdscript
+ */
+
 #ifndef GDSCRIPT_H
 #define GDSCRIPT_H
 

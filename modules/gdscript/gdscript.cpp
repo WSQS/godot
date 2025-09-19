@@ -1075,7 +1075,19 @@ String GDScript::get_script_path() const {
 	}
 	return path;
 }
-
+/**
+ * @brief Load source code from path
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ * 
+ * Add `\0` at the end of content.
+ *
+ * Check encode format with utf-8.
+ * 
+ * @param p_path Path of gdscript file
+ * @return Error 
+ */
 Error GDScript::load_source_code(const String &p_path) {
 	if (p_path.is_empty() || p_path.begins_with("gdscript://") || ResourceLoader::get_resource_type(p_path.get_slice("::", 0)) == "PackedScene") {
 		return OK;
@@ -2492,7 +2504,15 @@ void GDScriptLanguage::reload_all_scripts() {
 	reload_scripts(scripts, true);
 #endif
 }
-
+/**
+ * @brief 
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ * 
+ * @param p_scripts 
+ * @param p_soft_reload 
+ */
 void GDScriptLanguage::reload_scripts(const Array &p_scripts, bool p_soft_reload) {
 #ifdef DEBUG_ENABLED
 
