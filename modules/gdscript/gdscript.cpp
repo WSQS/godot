@@ -729,6 +729,12 @@ void GDScript::_restore_old_static_data() {
 
 #endif
 
+/**
+ * @brief 
+ * 
+ * @param p_keep_state 
+ * @return Error 
+ */
 Error GDScript::reload(bool p_keep_state) {
 	if (reloading) {
 		return OK;
@@ -1080,10 +1086,14 @@ String GDScript::get_script_path() const {
  * @ingroup gdscript
  * @callgraph
  * @callergraph
+ *
+ * Called form @ref GDScriptLanguage::reload_scripts
  * 
  * Add `\0` at the end of content.
  *
  * Check encode format with utf-8.
+ *
+ * Save content into @ref GDScript::source
  * 
  * @param p_path Path of gdscript file
  * @return Error 
@@ -2946,6 +2956,23 @@ Ref<GDScript> GDScriptLanguage::get_script_by_fully_qualified_name(const String 
 
 /*************** RESOURCE ***************/
 
+/**
+ * @brief Load gdscript as resource
+ *
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ * 
+ * Call @ref GDScriptCache::get_full_script to get gdscript object
+ * 
+ * @param p_path 
+ * @param p_original_path 
+ * @param r_error 
+ * @param p_use_sub_threads 
+ * @param r_progress 
+ * @param p_cache_mode 
+ * @return Ref<Resource> 
+ */
 Ref<Resource> ResourceFormatLoaderGDScript::load(const String &p_path, const String &p_original_path, Error *r_error, bool p_use_sub_threads, float *r_progress, CacheMode p_cache_mode) {
 	Error err;
 	bool ignoring = p_cache_mode == CACHE_MODE_IGNORE || p_cache_mode == CACHE_MODE_IGNORE_DEEP;

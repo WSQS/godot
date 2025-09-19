@@ -311,6 +311,26 @@ void GDScriptParser::set_last_completion_call_arg(int p_argument) {
 	completion_call_stack.back()->get().argument = p_argument;
 }
 
+/**
+ * @brief 
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ *
+ * Call @ref GDScriptTokenizerText::set_source_code to set source code to tokenizer.
+ * 
+ * Call @ref GDScriptTokenizerText::scan to get Token.
+ *
+ * Handle initialize of first token.
+ *
+ * Call @ref GDScriptParser::parse_program to do real parse job.
+ * 
+ * @param p_source_code 
+ * @param p_script_path 
+ * @param p_for_completion 
+ * @param p_parse_body 
+ * @return Error 
+ */
 Error GDScriptParser::parse(const String &p_source_code, const String &p_script_path, bool p_for_completion, bool p_parse_body) {
 	clear();
 
@@ -574,6 +594,18 @@ void GDScriptParser::end_statement(const String &p_context) {
 	}
 }
 
+/**
+ * @brief 
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ *
+ * - Handle annotation
+ * - Parse class header
+ * - Parse class body @ref GDScriptParser::parse_class_body
+ *
+ * @callergraph
+ */
 void GDScriptParser::parse_program() {
 	head = alloc_node<ClassNode>();
 	head->start_line = 1;
@@ -960,6 +992,14 @@ void GDScriptParser::parse_class_member(T *(GDScriptParser::*p_parse_function)(b
 	}
 }
 
+/**
+ * @brief
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ *
+ * @param p_is_multiline 
+ */
 void GDScriptParser::parse_class_body(bool p_is_multiline) {
 	bool class_end = false;
 	bool next_is_static = false;

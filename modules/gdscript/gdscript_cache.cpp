@@ -64,6 +64,17 @@ GDScriptAnalyzer *GDScriptParserRef::get_analyzer() {
 	return analyzer;
 }
 
+/**
+ * @brief Check status of @ref GDScriptParserRef
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ * 
+ * If status is empty, set to PARSED. Clear Parser. Using cached source code in @ref GDScriptCache::get_source_code. Set @ref GDScriptParserRef::source_hash. Call @ref GDScriptParser::parse to parse source code.
+ * 
+ * @param p_new_status 
+ * @return Error 
+ */
 Error GDScriptParserRef::raise_status(Status p_new_status) {
 	ERR_FAIL_COND_V(clearing, ERR_BUG);
 	ERR_FAIL_COND_V(parser == nullptr && status != EMPTY, ERR_BUG);
@@ -209,6 +220,18 @@ void GDScriptCache::remove_script(const String &p_path) {
 	singleton->full_gdscript_cache.erase(p_path);
 }
 
+/**
+ * @brief Get @ref GDScriptParserRef with @ref GDScriptCache::parser_map cache
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ * 
+ * @param p_path 
+ * @param p_status 
+ * @param r_error 
+ * @param p_owner 
+ * @return Ref<GDScriptParserRef> 
+ */
 Ref<GDScriptParserRef> GDScriptCache::get_parser(const String &p_path, GDScriptParserRef::Status p_status, Error &r_error, const String &p_owner) {
 	MutexLock lock(singleton->mutex);
 	Ref<GDScriptParserRef> ref;
@@ -295,6 +318,20 @@ Vector<uint8_t> GDScriptCache::get_binary_tokens(const String &p_path) {
 	return buffer;
 }
 
+/**
+ * @brief 
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ * 
+ * - Call @ref GDScript::load_source_code to get source code
+ * - Call @ref GDScriptCache::get_parser to get parser
+ * 
+ * @param p_path 
+ * @param r_error 
+ * @param p_owner 
+ * @return Ref<GDScript> 
+ */
 Ref<GDScript> GDScriptCache::get_shallow_script(const String &p_path, Error &r_error, const String &p_owner) {
 	MutexLock lock(singleton->mutex);
 	if (!p_owner.is_empty()) {
@@ -335,6 +372,20 @@ Ref<GDScript> GDScriptCache::get_shallow_script(const String &p_path, Error &r_e
 	return script;
 }
 
+/**
+ * @brief 
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ *
+ * 
+ * 
+ * @param p_path 
+ * @param r_error 
+ * @param p_owner 
+ * @param p_update_from_disk 
+ * @return Ref<GDScript> 
+ */
 Ref<GDScript> GDScriptCache::get_full_script(const String &p_path, Error &r_error, const String &p_owner, bool p_update_from_disk) {
 	MutexLock lock(singleton->mutex);
 

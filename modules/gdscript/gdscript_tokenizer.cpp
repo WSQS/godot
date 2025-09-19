@@ -256,6 +256,14 @@ String GDScriptTokenizer::get_token_name(Token::Type p_token_type) {
 	return token_names[p_token_type];
 }
 
+/**
+ * @brief Pass Source code to tokenizer
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ * 
+ * @param p_source_code 
+ */
 void GDScriptTokenizerText::set_source_code(const String &p_source_code) {
 	source = p_source_code;
 	if (source.is_empty()) {
@@ -1395,6 +1403,14 @@ void GDScriptTokenizerText::_skip_whitespace() {
 	}
 }
 
+/**
+ * @brief Return next token.
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ *
+ * @return GDScriptTokenizer::Token Next token.
+ */
 GDScriptTokenizer::Token GDScriptTokenizerText::scan() {
 	if (has_error()) {
 		return pop_error();
