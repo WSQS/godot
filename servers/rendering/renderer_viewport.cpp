@@ -250,7 +250,13 @@ void RendererViewport::_draw_3d(Viewport *p_viewport) {
 	RENDER_TIMESTAMP("< Render 3D Scene");
 #endif // _3D_DISABLED
 }
-
+/**
+ * @brief Draw viewport
+ * @ingroup render_viewport
+ * \callgraph
+ * \callergraph
+ * @param p_viewport 
+ */
 void RendererViewport::_draw_viewport(Viewport *p_viewport) {
 	if (p_viewport->measure_render_time) {
 		String rt_id = "vp_begin_" + itos(p_viewport->self.get_id());
