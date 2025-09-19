@@ -730,8 +730,11 @@ void GDScript::_restore_old_static_data() {
 #endif
 
 /**
- * @brief 
- * 
+ * @brief Call GDScriptParser, GDScriptAnalyzer and GDScriptCompiler.
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ *
  * @param p_keep_state 
  * @return Error 
  */

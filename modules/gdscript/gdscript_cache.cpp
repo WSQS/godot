@@ -65,12 +65,15 @@ GDScriptAnalyzer *GDScriptParserRef::get_analyzer() {
 }
 
 /**
- * @brief Check status of @ref GDScriptParserRef
+ * @brief Check and update status of @ref GDScriptParserRef
  * @ingroup gdscript
  * @callgraph
  * @callergraph
  * 
- * If status is empty, set to PARSED. Clear Parser. Using cached source code in @ref GDScriptCache::get_source_code. Set @ref GDScriptParserRef::source_hash. Call @ref GDScriptParser::parse to parse source code.
+ * - Parse source code: @ref GDScriptParser::parse.
+ * - Resolve inheritance: @ref GDScriptAnalyzer::resolve_inheritance
+ * - Resolve interface: @ref GDScriptAnalyzer::resolve_interface
+ * - Resolve body: @ref GDScriptAnalyzer::resolve_body
  * 
  * @param p_new_status 
  * @return Error 
@@ -221,7 +224,7 @@ void GDScriptCache::remove_script(const String &p_path) {
 }
 
 /**
- * @brief Get @ref GDScriptParserRef with @ref GDScriptCache::parser_map cache
+ * @brief Get @ref GDScriptParserRef with @ref GDScriptCache::parser_map cache, parse code in @ref GDScriptParserRef::raise_status
  * @ingroup gdscript
  * @callgraph
  * @callergraph
@@ -325,7 +328,8 @@ Vector<uint8_t> GDScriptCache::get_binary_tokens(const String &p_path) {
  * @callergraph
  * 
  * - Call @ref GDScript::load_source_code to get source code
- * - Call @ref GDScriptCache::get_parser to get parser
+ * - Call @ref GDScriptCache::get_parser to get parser and parse source code
+ * - Call @ref GDScriptCompiler::make_scripts to setup subclasses
  * 
  * @param p_path 
  * @param r_error 
@@ -378,7 +382,8 @@ Ref<GDScript> GDScriptCache::get_shallow_script(const String &p_path, Error &r_e
  * @callgraph
  * @callergraph
  *
- * 
+ * - Call @ref GDScriptCache::get_shallow_script to run tokenizer, parser and Analyzer
+ * - Call @ref GDScript::reload
  * 
  * @param p_path 
  * @param r_error 

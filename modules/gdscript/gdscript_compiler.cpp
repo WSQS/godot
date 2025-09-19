@@ -3055,6 +3055,16 @@ void GDScriptCompiler::convert_to_initializer_type(Variant &p_variant, const GDS
 	}
 }
 
+/**
+ * @brief Recursively call @ref GDScriptCompiler::make_scripts to setup class tree.
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ *
+ * @param p_script 
+ * @param p_class 
+ * @param p_keep_state 
+ */
 void GDScriptCompiler::make_scripts(GDScript *p_script, const GDScriptParser::ClassNode *p_class, bool p_keep_state) {
 	p_script->fully_qualified_name = p_class->fqcn;
 	p_script->local_name = p_class->identifier ? p_class->identifier->name : StringName();
@@ -3222,6 +3232,17 @@ void GDScriptCompiler::_get_function_ptr_replacements(HashMap<GDScriptFunction *
 	}
 }
 
+/**
+ * @brief 
+ * @ingroup gdscript
+ * @callgraph
+ * @callergraph
+ *
+ * @param p_parser 
+ * @param p_script 
+ * @param p_keep_state 
+ * @return Error 
+ */
 Error GDScriptCompiler::compile(const GDScriptParser *p_parser, GDScript *p_script, bool p_keep_state) {
 	err_line = -1;
 	err_column = -1;
