@@ -920,6 +920,17 @@ void Object::set_script_and_instance(const Variant &p_script, ScriptInstance *p_
 	script_instance = p_instance;
 }
 
+/**
+ * @brief Set object's script
+ * @ingroup gdscript_runtime
+ * @callgraph
+ * @callergraph
+ *
+ * - Clean up script_instance
+ * - Call @ref GDScript::instance_create to creat new script_instance
+ * 
+ * @param p_script 
+ */
 void Object::set_script(const Variant &p_script) {
 	if (script == p_script) {
 		return;

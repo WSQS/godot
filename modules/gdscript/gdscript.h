@@ -32,6 +32,11 @@
  *  @brief gdscript
  */
 
+/** @defgroup gdscript_runtime GDScript Runtime
+ *  @brief GDScript Runtime
+ *  @ingroup gdscript
+ */
+
 #ifndef GDSCRIPT_H
 #define GDSCRIPT_H
 
@@ -350,6 +355,13 @@ public:
 	~GDScript();
 };
 
+/**
+ * @brief Runtime representation of gdscript class.
+ * @ingroup gdscript_runtime
+ * @callgraph
+ * @callergraph
+ * 
+ */
 class GDScriptInstance : public ScriptInstance {
 	friend class GDScript;
 	friend class GDScriptFunction;

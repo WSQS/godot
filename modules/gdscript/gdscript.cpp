@@ -143,6 +143,22 @@ void GDScript::_super_implicit_constructor(GDScript *p_script, GDScriptInstance 
 	}
 }
 
+/**
+ * @brief 
+ * @ingroup gdscript_runtime
+ * @callgraph
+ * @callergraph
+ *
+ * - Creat
+ * - Initialize and Construct
+ *
+ * @param p_args 
+ * @param p_argcount 
+ * @param p_owner 
+ * @param p_is_ref_counted 
+ * @param r_error 
+ * @return GDScriptInstance* 
+ */
 GDScriptInstance *GDScript::_create_instance(const Variant **p_args, int p_argcount, Object *p_owner, bool p_is_ref_counted, Callable::CallError &r_error) {
 	/* STEP 1, CREATE */
 
@@ -399,6 +415,18 @@ bool GDScript::get_property_default_value(const StringName &p_property, Variant 
 	return false;
 }
 
+/**
+ * @brief 
+ * @ingroup gdscript_runtime
+ * @callgraph
+ * @callergraph
+ *
+ * - Check object class is inheriting from script's base class.
+ * - Call @ref GDScript::_create_instance
+ * 
+ * @param p_this 
+ * @return ScriptInstance* 
+ */
 ScriptInstance *GDScript::instance_create(Object *p_this) {
 	ERR_FAIL_COND_V_MSG(!valid, nullptr, "Script is invalid!");
 
@@ -2044,6 +2072,21 @@ void GDScriptInstance::_call_implicit_ready_recursively(GDScript *p_script) {
 	}
 }
 
+/**
+ * @brief Excute gdscript function
+ * @ingroup gdscript_runtime
+ * @callgraph
+ * @callergraph
+ *
+ * - Execute member function by calling @ref GDScriptFunction::call
+ * - Recursivly find base's member function
+ * 
+ * @param p_method Function name
+ * @param p_args 
+ * @param p_argcount 
+ * @param r_error 
+ * @return Variant 
+ */
 Variant GDScriptInstance::callp(const StringName &p_method, const Variant **p_args, int p_argcount, Callable::CallError &r_error) {
 	GDScript *sptr = script.ptr();
 	if (unlikely(p_method == SceneStringName(_ready))) {

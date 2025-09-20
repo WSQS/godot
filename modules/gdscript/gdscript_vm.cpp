@@ -445,6 +445,21 @@ void (*type_init_function_table[])(Variant *) = {
 #define METHOD_CALL_ON_NULL_VALUE_ERROR(method_pointer) "Cannot call method '" + (method_pointer)->get_name() + "' on a null value."
 #define METHOD_CALL_ON_FREED_INSTANCE_ERROR(method_pointer) "Cannot call method '" + (method_pointer)->get_name() + "' on a previously freed instance."
 
+/**
+ * @brief Run GDScriptFunction in gdscript vm.
+ * @ingroup gdscript_runtime
+ * @callgraph
+ * @callergraph
+ * 
+ * - @ref GDScriptFunction::OPCODE_CALL_METHOD_BIND and @ref GDScriptFunction::OPCODE_CALL_METHOD_BIND_RET: Call @ref MethodBind::call
+ *
+ * @param p_instance 
+ * @param p_args 
+ * @param p_argcount 
+ * @param r_err 
+ * @param p_state 
+ * @return Variant 
+ */
 Variant GDScriptFunction::call(GDScriptInstance *p_instance, const Variant **p_args, int p_argcount, Callable::CallError &r_err, CallState *p_state) {
 	OPCODES_TABLE;
 
